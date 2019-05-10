@@ -9,9 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".SimpleExampleActivity" />
+        <activity android:name=".MapExampleActivity" />
+        <activity android:name=".operator.ZipExampleActivity" />
+        <activity android:name=".DisposableExampleActivity" />
+        <activity android:name=".TakeExampleActivity" />
+        <activity android:name=".TimerExampleActivity" />
+        <activity android:name=".IntervalExampleActivity" />
+        <activity android:name=".SingleObserverExampleActivity" />
+        <activity android:name=".CompletableObserverExampleActivity" />
+        <activity android:name=".FlowableExampleActivity" />
+        <activity android:name=".ReduceExampleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

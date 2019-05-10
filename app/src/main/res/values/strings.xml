@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">RxJavaSamples</string>
+    <string name="app_name">Samples</string>
+    <string name="doSomeWork">doSomeWork</string>
 </resources>
