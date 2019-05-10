@@ -19,7 +19,9 @@
         <activity android:name=".SingleObserverExampleActivity" />
         <activity android:name=".CompletableObserverExampleActivity" />
         <activity android:name=".FlowableExampleActivity" />
-        <activity android:name=".ReduceExampleActivity">
+        <activity android:name=".ReduceExampleActivity" />
+        <activity android:name=".BufferExampleActivity" />
+        <activity android:name=".FilterExampleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
