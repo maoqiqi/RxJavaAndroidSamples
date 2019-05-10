@@ -1,9 +1,6 @@
 package com.codearms.maoqiqi.rxjavasamples;
 
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
 
@@ -19,29 +16,16 @@ import io.reactivex.schedulers.Schedulers;
  * Author: fengqi.mao.march@gmail.com
  * Date: 2019/5/10 17:12
  */
-public class FlowableExampleActivity extends BaseActivity {
-
-    private static final String TAG = FlowableExampleActivity.class.getSimpleName();
-
-    private TextView textView;
+public class FlowableExampleActivity extends ExampleActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_example);
-
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle("FlowableExample");
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doSomeWork();
-            }
-        });
-        textView = findViewById(R.id.textView);
+    protected String getTitleText() {
+        return "FlowableExample";
     }
 
     // 使用Flowable
-    private void doSomeWork() {
+    @Override
+    protected void doSomeWork() {
         Flowable.just(1, 2, 3, 4)
                 .reduce(50, new BiFunction<Integer, Integer, Integer>() {
                     @Override

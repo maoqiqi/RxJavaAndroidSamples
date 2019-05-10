@@ -1,9 +1,6 @@
 package com.codearms.maoqiqi.rxjavasamples;
 
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
 
@@ -20,29 +17,16 @@ import io.reactivex.schedulers.Schedulers;
  * Author: fengqi.mao.march@gmail.com
  * Date: 2019/5/10 17:30
  */
-public class BufferExampleActivity extends BaseActivity {
-
-    private static final String TAG = BufferExampleActivity.class.getSimpleName();
-
-    private TextView textView;
+public class BufferExampleActivity extends ExampleActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_example);
-
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle("BufferExample");
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doSomeWork();
-            }
-        });
-        textView = findViewById(R.id.textView);
+    protected String getTitleText() {
+        return "BufferExample";
     }
 
     // 将所有发出的值捆绑到一个列表中
-    private void doSomeWork() {
+    @Override
+    protected void doSomeWork() {
         // 3:它从它的开始索引和创建列表中最多取三个
         // 1:每次跳一步
         // 结果：

@@ -1,10 +1,7 @@
 package com.codearms.maoqiqi.rxjavasamples;
 
-import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
 
@@ -22,27 +19,13 @@ import io.reactivex.schedulers.Schedulers;
  * Author: fengqi.mao.march@gmail.com
  * Date: 2019/5/10 16:10
  */
-public class DisposableExampleActivity extends BaseActivity {
-
-    private static final String TAG = DisposableExampleActivity.class.getSimpleName();
-
-    private TextView textView;
+public class DisposableExampleActivity extends ExampleActivity {
 
     private final CompositeDisposable disposables = new CompositeDisposable();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_example);
-
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle("DisposableExample");
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doSomeWork();
-            }
-        });
-        textView = findViewById(R.id.textView);
+    protected String getTitleText() {
+        return "DisposableExample";
     }
 
     @Override
@@ -52,7 +35,8 @@ public class DisposableExampleActivity extends BaseActivity {
         disposables.clear();
     }
 
-    private void doSomeWork() {
+    @Override
+    protected void doSomeWork() {
         disposables.add(getObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

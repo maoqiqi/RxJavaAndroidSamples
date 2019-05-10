@@ -1,9 +1,6 @@
 package com.codearms.maoqiqi.rxjavasamples;
 
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
 
@@ -20,27 +17,13 @@ import io.reactivex.schedulers.Schedulers;
  * Author: fengqi.mao.march@gmail.com
  * Date: 2019/5/10 16:52
  */
-public class IntervalExampleActivity extends BaseActivity {
-
-    private static final String TAG = IntervalExampleActivity.class.getSimpleName();
-
-    private TextView textView;
+public class IntervalExampleActivity extends ExampleActivity {
 
     private final CompositeDisposable disposables = new CompositeDisposable();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_example);
-
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle("IntervalExample");
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doSomeWork();
-            }
-        });
-        textView = findViewById(R.id.textView);
+    protected String getTitleText() {
+        return "IntervalExample";
     }
 
     @Override
@@ -50,7 +33,8 @@ public class IntervalExampleActivity extends BaseActivity {
     }
 
     // 以2秒的间隔运行任务,并立即启动
-    private void doSomeWork() {
+    @Override
+    protected void doSomeWork() {
         disposables.add(getObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

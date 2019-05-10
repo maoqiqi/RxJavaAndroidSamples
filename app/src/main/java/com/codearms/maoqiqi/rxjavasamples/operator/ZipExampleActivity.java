@@ -1,12 +1,8 @@
 package com.codearms.maoqiqi.rxjavasamples.operator;
 
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
-import com.codearms.maoqiqi.rxjavasamples.BaseActivity;
-import com.codearms.maoqiqi.rxjavasamples.R;
+import com.codearms.maoqiqi.rxjavasamples.ExampleActivity;
 import com.codearms.maoqiqi.rxjavasamples.bean.UserBean;
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
 import com.codearms.maoqiqi.rxjavasamples.utils.ProvideData;
@@ -27,29 +23,16 @@ import io.reactivex.schedulers.Schedulers;
  * Author: fengqi.mao.march@gmail.com
  * Date: 2019/5/10 15:40
  */
-public class ZipExampleActivity extends BaseActivity {
-
-    private static final String TAG = ZipExampleActivity.class.getSimpleName();
-
-    private TextView textView;
+public class ZipExampleActivity extends ExampleActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_example);
-
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle("ZipExample");
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doSomeWork();
-            }
-        });
-        textView = findViewById(R.id.textView);
+    protected String getTitleText() {
+        return "ZipExample";
     }
 
     // 从两个用户列表中找到相同的用户,并显示用户FirstName
-    private void doSomeWork() {
+    @Override
+    protected void doSomeWork() {
         Observable.zip(getObservable(), getObservable2(),
                 new BiFunction<List<UserBean>, List<UserBean>, List<String>>() {
                     @Override
@@ -87,7 +70,6 @@ public class ZipExampleActivity extends BaseActivity {
     }
 
     private Observer<List<String>> getObserver() {
-
         return new Observer<List<String>>() {
 
             @Override

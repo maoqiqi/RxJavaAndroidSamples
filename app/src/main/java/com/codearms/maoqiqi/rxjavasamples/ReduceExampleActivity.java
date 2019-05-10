@@ -1,9 +1,6 @@
 package com.codearms.maoqiqi.rxjavasamples;
 
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
 
@@ -19,29 +16,16 @@ import io.reactivex.schedulers.Schedulers;
  * Author: fengqi.mao.march@gmail.com
  * Date: 2019/5/10 17:21
  */
-public class ReduceExampleActivity extends BaseActivity {
-
-    private static final String TAG = ReduceExampleActivity.class.getSimpleName();
-
-    private TextView textView;
+public class ReduceExampleActivity extends ExampleActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_example);
-
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle("ReduceExample");
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doSomeWork();
-            }
-        });
-        textView = findViewById(R.id.textView);
+    protected String getTitleText() {
+        return "ReduceExample";
     }
 
     // 使所有数字相加
-    private void doSomeWork() {
+    @Override
+    protected void doSomeWork() {
         Observable.just(1, 2, 3, 4)
                 .reduce(new BiFunction<Integer, Integer, Integer>() {
                     @Override

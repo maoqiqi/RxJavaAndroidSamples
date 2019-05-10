@@ -1,10 +1,6 @@
 package com.codearms.maoqiqi.rxjavasamples;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
 import com.codearms.maoqiqi.rxjavasamples.bean.UserBean;
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
@@ -26,29 +22,16 @@ import io.reactivex.schedulers.Schedulers;
  * Author: fengqi.mao.march@gmail.com
  * Date: 2019/5/10 15:10
  */
-public class MapExampleActivity extends AppCompatActivity {
-
-    private static final String TAG = MapExampleActivity.class.getSimpleName();
-
-    private TextView textView;
+public class MapExampleActivity extends ExampleActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_example);
-
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle("MapExample");
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doSomeWork();
-            }
-        });
-        textView = findViewById(R.id.textView);
+    protected String getTitleText() {
+        return "MapExample";
     }
 
     // 将UserBean对象转换为String显示,我们只需要FirstName
-    private void doSomeWork() {
+    @Override
+    protected void doSomeWork() {
         getObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
