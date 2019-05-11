@@ -38,7 +38,6 @@ public class TimerExampleActivity extends ExampleActivity {
     }
 
     private Observer<Long> getObserver() {
-
         return new Observer<Long>() {
 
             @Override

@@ -40,7 +40,8 @@
         <activity android:name=".WindowExampleActivity" />
         <activity android:name=".DelayExampleActivity" />
         <activity android:name=".SwitchMapExampleActivity" />
-        <activity android:name=".TakeWhileExampleActivity">
+        <activity android:name=".TakeWhileExampleActivity" />
+        <activity android:name=".TakeUntilExampleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
