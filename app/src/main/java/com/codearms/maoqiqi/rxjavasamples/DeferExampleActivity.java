@@ -4,40 +4,44 @@ import android.util.Log;
 
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
 
+import java.util.concurrent.Callable;
+
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Take example
+ * Defer example
  * Author: fengqi.mao.march@gmail.com
- * Date: 2019/5/10 16:38
+ * Date: 2019/5/10 22:11
  */
-public class TakeExampleActivity extends ExampleActivity {
+public class DeferExampleActivity extends ExampleActivity {
 
     @Override
     protected String getTitleText() {
-        return "TakeExample";
+        return "DeferExample";
     }
 
-    // 只发出前面三个
+    // 将可观察代码延迟到RxJava中的订阅
     @Override
     protected void doSomeWork() {
-        getObservable()
+        Car car = new Car();
+
+        car.brandDeferObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .take(3)
                 .subscribe(getObserver());
+
+        // 即使我们在创建Observable后设置了品牌,我们也会得到BMW这个品牌。
+        // 如果我们没有使用defer,我们将得到null作为品牌。
+        car.setBrand("BMW");
     }
 
-    private Observable<Integer> getObservable() {
-        return Observable.just(1, 2, 3, 4, 5);
-    }
-
-    private Observer<Integer> getObserver() {
-        return new Observer<Integer>() {
+    private Observer<String> getObserver() {
+        return new Observer<String>() {
 
             @Override
             public void onSubscribe(Disposable d) {
@@ -45,9 +49,9 @@ public class TakeExampleActivity extends ExampleActivity {
             }
 
             @Override
-            public void onNext(Integer integer) {
-                Log.d(TAG, "onNext -> value -> " + integer);
-                textView.append("onNext -> value -> " + integer);
+            public void onNext(String s) {
+                Log.d(TAG, "onNext -> value -> " + s);
+                textView.append("onNext -> value -> " + s);
                 textView.append(Constant.LINE_SEPARATOR);
             }
 
@@ -65,5 +69,23 @@ public class TakeExampleActivity extends ExampleActivity {
                 textView.append(Constant.LINE_SEPARATOR);
             }
         };
+    }
+
+    public class Car {
+
+        private String brand;
+
+        void setBrand(String brand) {
+            this.brand = brand;
+        }
+
+        Observable<String> brandDeferObservable() {
+            return Observable.defer(new Callable<ObservableSource<String>>() {
+                @Override
+                public ObservableSource<String> call() {
+                    return Observable.just(brand);
+                }
+            });
+        }
     }
 }

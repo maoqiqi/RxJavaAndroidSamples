@@ -8,27 +8,32 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Take example
+ * Scan example
  * Author: fengqi.mao.march@gmail.com
- * Date: 2019/5/10 16:38
+ * Date: 2019/5/10 21:10
  */
-public class TakeExampleActivity extends ExampleActivity {
+public class ScanExampleActivity extends ExampleActivity {
 
     @Override
     protected String getTitleText() {
-        return "TakeExample";
+        return "ScanExample";
     }
 
-    // 只发出前面三个
     @Override
     protected void doSomeWork() {
         getObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .take(3)
+                .scan(new BiFunction<Integer, Integer, Integer>() {
+                    @Override
+                    public Integer apply(Integer integer, Integer integer2) {
+                        return integer + integer2;
+                    }
+                })
                 .subscribe(getObserver());
     }
 

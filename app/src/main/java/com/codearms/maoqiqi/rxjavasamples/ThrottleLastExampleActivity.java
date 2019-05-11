@@ -4,36 +4,64 @@ import android.util.Log;
 
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
 
+import java.util.concurrent.TimeUnit;
+
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Take example
+ * ThrottleLast example
  * Author: fengqi.mao.march@gmail.com
- * Date: 2019/5/10 16:38
+ * Date: 2019/5/11 15:18
  */
-public class TakeExampleActivity extends ExampleActivity {
+public class ThrottleLastExampleActivity extends ExampleActivity {
 
     @Override
     protected String getTitleText() {
-        return "TakeExample";
+        return "ThrottleLastExample";
     }
 
-    // 只发出前面三个
+    // 在周期时间间隔内发出可观察到的最新项,因此这里它将发出2、6和7,因为我们已经将它模拟为500millis区间内的最后一个元素
     @Override
     protected void doSomeWork() {
         getObservable()
+                .throttleLast(500, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .take(3)
                 .subscribe(getObserver());
     }
 
     private Observable<Integer> getObservable() {
-        return Observable.just(1, 2, 3, 4, 5);
+        return Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                // 发送模拟等待时间的事件
+                Thread.sleep(0);
+                emitter.onNext(1); // deliver
+                emitter.onNext(2); // skip
+
+                Thread.sleep(505);
+                emitter.onNext(3); // deliver
+
+                Thread.sleep(99);
+                emitter.onNext(4); // skip
+
+                Thread.sleep(100);
+                emitter.onNext(5); // skip
+                emitter.onNext(6); // skip
+
+                Thread.sleep(305);
+                emitter.onNext(7); // deliver
+
+                Thread.sleep(510);
+                emitter.onComplete();
+            }
+        });
     }
 
     private Observer<Integer> getObserver() {

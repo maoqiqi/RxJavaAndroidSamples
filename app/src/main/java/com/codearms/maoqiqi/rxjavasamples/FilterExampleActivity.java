@@ -38,7 +38,6 @@ public class FilterExampleActivity extends ExampleActivity {
     }
 
     private Observer<Integer> getObserver() {
-
         return new Observer<Integer>() {
 
             @Override

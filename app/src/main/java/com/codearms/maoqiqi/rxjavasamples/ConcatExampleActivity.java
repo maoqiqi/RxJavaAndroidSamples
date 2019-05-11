@@ -4,35 +4,38 @@ import android.util.Log;
 
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
 
-import io.reactivex.Single;
-import io.reactivex.SingleObserver;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * SingleObserver example
+ * Concat example
  * Author: fengqi.mao.march@gmail.com
- * Date: 2019/5/10 17:00
+ * Date: 2019/5/10 21:44
  */
-public class SingleObserverExampleActivity extends ExampleActivity {
+public class ConcatExampleActivity extends ExampleActivity {
 
     @Override
     protected String getTitleText() {
-        return "SingleObserverExample";
+        return "ConcatExample";
     }
 
-    // 使用SingleObserver
+    // 组合观察值并维护观察值的顺序,首先是第一个观察到的,然后是第二个观察到的
     @Override
     protected void doSomeWork() {
-        Single.just("one")
+        final String[] aStrings = {"A1", "A2", "A3", "A4"};
+        final String[] bStrings = {"B1", "B2", "B3"};
+
+        Observable.concat(Observable.fromArray(aStrings), Observable.fromArray(bStrings))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(getSingleObserver());
+                .subscribe(getObserver());
     }
 
-    private SingleObserver<String> getSingleObserver() {
-        return new SingleObserver<String>() {
+    private Observer<String> getObserver() {
+        return new Observer<String>() {
 
             @Override
             public void onSubscribe(Disposable d) {
@@ -40,9 +43,9 @@ public class SingleObserverExampleActivity extends ExampleActivity {
             }
 
             @Override
-            public void onSuccess(String s) {
-                Log.d(TAG, "onSuccess -> value -> " + s);
-                textView.append("onSuccess -> value -> " + s);
+            public void onNext(String s) {
+                Log.d(TAG, "onNext -> value -> " + s);
+                textView.append("onNext -> value -> " + s);
                 textView.append(Constant.LINE_SEPARATOR);
             }
 
@@ -50,6 +53,13 @@ public class SingleObserverExampleActivity extends ExampleActivity {
             public void onError(Throwable e) {
                 Log.d(TAG, "onError -> " + e.getMessage());
                 textView.append("onError -> " + e.getMessage());
+                textView.append(Constant.LINE_SEPARATOR);
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d(TAG, "onComplete");
+                textView.append("onComplete");
                 textView.append(Constant.LINE_SEPARATOR);
             }
         };

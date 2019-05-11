@@ -4,30 +4,32 @@ import android.util.Log;
 
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
 
-import io.reactivex.Single;
+import io.reactivex.Observable;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * SingleObserver example
+ * LastOperator example
  * Author: fengqi.mao.march@gmail.com
- * Date: 2019/5/10 17:00
+ * Date: 2019/5/10 22:25
  */
-public class SingleObserverExampleActivity extends ExampleActivity {
+public class LastOperatorExampleActivity extends ExampleActivity {
 
     @Override
     protected String getTitleText() {
-        return "SingleObserverExample";
+        return "LastOperatorExample";
     }
 
-    // 使用SingleObserver
+    // 只发出可观察对象发出的最后一项
     @Override
     protected void doSomeWork() {
-        Single.just("one")
+        Observable.just("A1", "A2", "A3", "A4", "A5", "A6")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                // 如果ObservableSource为空,则发出默认项("A1")
+                .last("A1")
                 .subscribe(getSingleObserver());
     }
 

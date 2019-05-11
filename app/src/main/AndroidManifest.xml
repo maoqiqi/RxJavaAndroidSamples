@@ -21,7 +21,26 @@
         <activity android:name=".FlowableExampleActivity" />
         <activity android:name=".ReduceExampleActivity" />
         <activity android:name=".BufferExampleActivity" />
-        <activity android:name=".FilterExampleActivity">
+        <activity android:name=".FilterExampleActivity" />
+        <activity android:name=".SkipExampleActivity" />
+        <activity android:name=".ScanExampleActivity" />
+        <activity android:name=".ReplayExampleActivity" />
+        <activity android:name=".ConcatExampleActivity" />
+        <activity android:name=".MergeExampleActivity" />
+        <activity android:name=".DeferExampleActivity" />
+        <activity android:name=".DistinctExampleActivity" />
+        <activity android:name=".LastOperatorExampleActivity" />
+        <activity android:name=".ReplaySubjectExampleActivity" />
+        <activity android:name=".PublishSubjectExampleActivity" />
+        <activity android:name=".BehaviorSubjectExampleActivity" />
+        <activity android:name=".AsyncSubjectExampleActivity" />
+        <activity android:name=".ThrottleFirstExampleActivity" />
+        <activity android:name=".ThrottleLastExampleActivity" />
+        <activity android:name=".DebounceExampleActivity" />
+        <activity android:name=".WindowExampleActivity" />
+        <activity android:name=".DelayExampleActivity" />
+        <activity android:name=".SwitchMapExampleActivity" />
+        <activity android:name=".TakeWhileExampleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
