@@ -26,6 +26,7 @@ public class DebounceExampleActivity extends ExampleActivity {
         return "DebounceExample";
     }
 
+    // TODO: 2019-05-12 使用EditText每次输入变化做为例子
     // 只在一个特定的时间跨度已经过去而没有发出另一个项目的情况下,从一个可观察对象发出一个项目,所以它将发出我们已经模拟过的2,4,5。
     @Override
     protected void doSomeWork() {

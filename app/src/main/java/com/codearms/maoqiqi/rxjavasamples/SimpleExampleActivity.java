@@ -8,6 +8,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -25,6 +26,13 @@ public class SimpleExampleActivity extends ExampleActivity {
     @Override
     protected void doSomeWork() {
         getObservable()
+                .map(new Function<String, String>() {
+                    @Override
+                    public String apply(String s) {
+                        doSomeLongOperation();
+                        return s;
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(getObserver());
@@ -39,26 +47,26 @@ public class SimpleExampleActivity extends ExampleActivity {
 
             @Override
             public void onSubscribe(Disposable d) {
-                Log.d(TAG, "onSubscribe -> " + d.isDisposed());
+                Log.d(TAG, "onSubscribe -> " + d.isDisposed() + getThreadInfo());
             }
 
             @Override
             public void onNext(String s) {
-                Log.d(TAG, "onNext -> value -> " + s);
+                Log.d(TAG, "onNext -> value -> " + s + getThreadInfo());
                 textView.append("onNext -> value -> " + s);
                 textView.append(Constant.LINE_SEPARATOR);
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.d(TAG, "onError -> " + e.getMessage());
+                Log.d(TAG, "onError -> " + e.getMessage() + getThreadInfo());
                 textView.append("onError -> " + e.getMessage());
                 textView.append(Constant.LINE_SEPARATOR);
             }
 
             @Override
             public void onComplete() {
-                Log.d(TAG, "onComplete");
+                Log.d(TAG, "onComplete" + getThreadInfo());
                 textView.append("onComplete");
                 textView.append(Constant.LINE_SEPARATOR);
             }

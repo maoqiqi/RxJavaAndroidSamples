@@ -5,6 +5,7 @@ import android.util.Log;
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -36,18 +37,19 @@ public class BufferExampleActivity extends ExampleActivity {
         // 第4次:four, five
         // 第5次:five
         getObservable()
+//                .buffer(2, TimeUnit.SECONDS)
                 .buffer(3, 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(getObserver());
     }
 
-    private Observable<String> getObservable() {
-        return Observable.just("one", "two", "three", "four", "five");
+    private Observable<Long> getObservable() {
+        return Observable.interval(0, 2, TimeUnit.SECONDS);
     }
 
-    private Observer<List<String>> getObserver() {
-        return new Observer<List<String>>() {
+    private Observer<List<Long>> getObserver() {
+        return new Observer<List<Long>>() {
 
             @Override
             public void onSubscribe(Disposable d) {
@@ -55,12 +57,12 @@ public class BufferExampleActivity extends ExampleActivity {
             }
 
             @Override
-            public void onNext(List<String> strings) {
-                Log.d(TAG, "onNext -> value.size() -> " + strings.size());
-                textView.append("onNext -> value.size() -> " + strings.size());
+            public void onNext(List<Long> longs) {
+                Log.d(TAG, "onNext -> value.size() -> " + longs.size());
+                textView.append("onNext -> value.size() -> " + longs.size());
                 textView.append(Constant.LINE_SEPARATOR);
-                for (int i = 0; i < strings.size(); i++) {
-                    textView.append(" -> " + strings.get(i));
+                for (int i = 0; i < longs.size(); i++) {
+                    textView.append(" -> " + longs.get(i));
                     textView.append(Constant.LINE_SEPARATOR);
                 }
             }
