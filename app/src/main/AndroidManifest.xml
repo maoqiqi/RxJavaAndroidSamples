@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--<activity android:name=".SimpleExampleActivity" />-->
+        <activity android:name=".SimpleExampleActivity" />
         <activity android:name=".MapExampleActivity" />
         <activity android:name=".operator.ZipExampleActivity" />
         <activity android:name=".DisposableExampleActivity" />
@@ -43,7 +43,7 @@
         <activity android:name=".SwitchMapExampleActivity" />
         <activity android:name=".TakeWhileExampleActivity" />
         <activity android:name=".TakeUntilExampleActivity" />
-        <activity android:name=".SimpleExampleActivity">
+        <activity android:name=".TestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />

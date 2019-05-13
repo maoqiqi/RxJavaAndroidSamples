@@ -48,7 +48,7 @@ public abstract class ExampleActivity extends BaseActivity {
         Log.d(TAG, "Do Some Long Operation Start:" + getThreadInfo());
         try {
             Thread.sleep(3000);
-            Log.d(TAG, "Do Some Long Operation End.");
+            Log.d(TAG, "Do Some Long Operation End." + getThreadInfo());
         } catch (InterruptedException e) {
             e.printStackTrace();
             Log.e(TAG, "Operation was interrupted:" + e.getMessage() + getThreadInfo());

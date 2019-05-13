@@ -1,16 +1,20 @@
 package com.codearms.maoqiqi.rxjavasamples;
 
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class TestActivity extends ExampleActivity {
 
@@ -150,5 +154,59 @@ public class TestActivity extends ExampleActivity {
         };
 
         observable.subscribe(consumer);
+    }
+
+    // 线程控制Scheduler【加载图片案例】
+    private void fun4() {
+        // 加载图片将会发生在IO线程,而设置图片则被设定在了主线程。这就意味着,即使加载图片耗费了几十甚至几百毫秒的时间,也不会造成丝毫界面的卡顿。
+        Observable.create(
+                new ObservableOnSubscribe<Drawable>() {
+                    @Override
+                    public void subscribe(ObservableEmitter<Drawable> emitter) {
+                        Log.d(TAG, "被观察者");
+                        Drawable drawable = getResources().getDrawable(R.drawable.ic_logo);
+                        emitter.onNext(drawable);
+                        emitter.onComplete();
+                    }
+                })
+                // 事件产生的线程。指定subscribe()发生在IO线程
+                .subscribeOn(Schedulers.io())
+                // doOnSubscribe()之后有observeOn()的话,它将执行在离它最近的observeOn()所指定的线程。这里将执行在主线程中。
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) {
+                        Log.d(TAG, "doOnSubscribe()");
+                    }
+                })
+                // 指定Subscriber所运行在的线程。或者叫做事件消费的线程。
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
+    }
+
+    // 变换map()【加载图片案例】
+
+
+    // 引入flatmap()
+
+    /**
+     * RxBinding
+     * RxBinding 是 Jake Wharton 的一个开源库，它提供了一套在 Android 平台上的基于 RxJava 的 Binding API。
+     * 所谓 Binding，就是类似设置 OnClickListener 、设置 TextWatcher 这样的注册绑定对象的 API。
+     * 举个设置点击监听的例子。使用 RxBinding ，可以把事件监听用这样的方法来设置：
+     * throttleFirst() ，用于去抖动，也就是消除手抖导致的快速连环点击：
+     */
+
+    private void method16() {
+//        RxView.clicks(mImageView)
+//                .throttleFirst(500, TimeUnit.MILLISECONDS)//500ms,第一次点击后,500ms内点击无效,500ms后点击才会响应
+//                .subscribeOn(AndroidSchedulers.mainThread())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe();
+//        new Action1<Void>() {
+//            @Override
+//            public void call(Void aVoid) {
+//                Toast.makeText(MainActivity.this, "click", Toast.LENGTH_SHORT).show();
+//            }
+//        }
     }
 }
