@@ -1,4 +1,45 @@
 <resources>
     <string name="app_name">Samples</string>
     <string name="doSomeWork">doSomeWork</string>
+
+    <string name="create">Create</string>
+    <string name="just">Just</string>
+    <string name="from">From</string>
+    <string name="start">Start</string>
+    <string name="defer">Defer</string>
+    <string name="empty">Empty</string>
+    <string name="never">Never</string>
+    <string name="error">Error</string>
+    <string name="range">Range</string>
+    <string name="interval">Interval</string>
+    <string name="interval_range">intervalRange</string>
+    <string name="timer">Timer</string>
+    <string name="repeat">Repeat</string>
+
+    <string name="map">Map</string>
+    <string name="flat_map">FlatMap</string>
+    <string name="scan">Scan</string>
+    <string name="group_by">GroupBy</string>
+    <string name="buffer">Buffer</string>
+    <string name="window">Window</string>
+
+    <string name="filter">Filter</string>
+    <string name="take_last">TakeLast</string>
+    <string name="last">Last</string>
+    <string name="skip">Skip</string>
+    <string name="skip_last">SkipLast</string>
+    <string name="take">Take</string>
+    <string name="first">First</string>
+    <string name="element_at">ElementAt</string>
+    <string name="sample">Sample</string>
+    <string name="debounce">Debounce</string>
+    <string name="distinct">Distinct</string>
+    <string name="ignore_elements">IgnoreElements</string>
+
+    <string name="start_with">startWith</string>
+    <string name="merge">merge</string>
+    <string name="zip">zip</string>
+    <string name="combine_latest">combineLatest</string>
+    <string name="join">join</string>
+    <string name="switch_on_next">switchOnNext</string>
 </resources>

@@ -13,24 +13,24 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/btn_create"
+            android:id="@+id/btn_filter"
             style="@style/btn_style"
-            android:text="@string/create" />
+            android:text="@string/filter" />
 
         <Button
-            android:id="@+id/btn_just"
+            android:id="@+id/btn_last"
             style="@style/btn_style"
-            android:text="@string/just" />
+            android:text="@string/last" />
 
         <Button
-            android:id="@+id/btn_from"
+            android:id="@+id/btn_skip"
             style="@style/btn_style"
-            android:text="@string/from" />
+            android:text="@string/skip" />
 
         <Button
-            android:id="@+id/btn_start"
+            android:id="@+id/btn_skip_last"
             style="@style/btn_style"
-            android:text="@string/start" />
+            android:text="@string/skip_last" />
     </LinearLayout>
 
     <LinearLayout
@@ -42,24 +42,24 @@
         app:layout_constraintTop_toBottomOf="@id/h1">
 
         <Button
-            android:id="@+id/btn_defer"
+            android:id="@+id/btn_take"
             style="@style/btn_style"
-            android:text="@string/defer" />
+            android:text="@string/take" />
 
         <Button
-            android:id="@+id/btn_empty"
+            android:id="@+id/btn_take_last"
             style="@style/btn_style"
-            android:text="@string/empty" />
+            android:text="@string/take_last" />
 
         <Button
-            android:id="@+id/btn_never"
+            android:id="@+id/btn_first"
             style="@style/btn_style"
-            android:text="@string/never" />
+            android:text="@string/first" />
 
         <Button
-            android:id="@+id/btn_error"
+            android:id="@+id/btn_element_at"
             style="@style/btn_style"
-            android:text="@string/error" />
+            android:text="@string/element_at" />
     </LinearLayout>
 
     <LinearLayout
@@ -71,38 +71,24 @@
         app:layout_constraintTop_toBottomOf="@id/h2">
 
         <Button
-            android:id="@+id/btn_range"
+            android:id="@+id/btn_sample"
             style="@style/btn_style"
-            android:text="@string/range" />
+            android:text="@string/sample" />
 
         <Button
-            android:id="@+id/btn_interval"
+            android:id="@+id/btn_debounce"
             style="@style/btn_style"
-            android:text="@string/interval" />
+            android:text="@string/debounce" />
 
         <Button
-            android:id="@+id/btn_interval_range"
+            android:id="@+id/btn_distinct"
             style="@style/btn_style"
-            android:text="@string/interval_range" />
+            android:text="@string/distinct" />
 
         <Button
-            android:id="@+id/btn_timer"
+            android:id="@+id/btn_ignore_elements"
             style="@style/btn_style"
-            android:text="@string/timer" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/h4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/h3">
-
-        <Button
-            android:id="@+id/btn_repeat"
-            style="@style/btn_style"
-            android:text="@string/repeat" />
+            android:text="@string/ignore_elements" />
     </LinearLayout>
 
     <ScrollView
@@ -111,7 +97,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/h4">
+        app:layout_constraintTop_toBottomOf="@id/h3">
 
         <TextView
             android:id="@+id/textView"

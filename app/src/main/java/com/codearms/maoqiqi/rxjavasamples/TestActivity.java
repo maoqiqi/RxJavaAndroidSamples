@@ -3,10 +3,6 @@ package com.codearms.maoqiqi.rxjavasamples;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -85,17 +81,10 @@ public class TestActivity extends ExampleActivity {
     }
 
 
-    // 快捷创建事件队列`Observable.just(T...)`
-    // create()方法是RxJava最基本的创造事件序列的方法。
-    // 基于这个方法,RxJava 还提供了一些方法用来快捷创建事件队列,例如just(T...),将传入的参数依次发送出来.
     private void fun2() {
         // 1. 被观察者,事件源
         Observable<String> observable = Observable.just("Hello", "World", "!");
-        // 将会依次调用：
-        // emitter.onNext("Hello");
-        // emitter.onNext("World");
-        // emitter.onNext("!");
-        // emitter.onComplete();
+
 
         // 2. 观察者
         Observer<String> observer = new Observer<String>() {
@@ -124,13 +113,6 @@ public class TestActivity extends ExampleActivity {
 
         // 3. 订阅
         observable.subscribe(observer);
-
-        // 快捷创建事件队列`Observable.from(T[])/from(Iterable<? extends T>`
-        // 将传入的数组或Iterable拆分成具体对象后,依次发送出来
-        String[] array = new String[]{"Hello", "World", "!"};
-        List<String> list = Arrays.asList(array);
-        Observable<String> observable1 = Observable.fromArray(array);
-        Observable<String> observable2 = Observable.fromIterable(list);
     }
 
     // subscribe()支持不完整定义的回调

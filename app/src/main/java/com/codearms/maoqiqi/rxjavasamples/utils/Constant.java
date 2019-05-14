@@ -8,4 +8,5 @@ package com.codearms.maoqiqi.rxjavasamples.utils;
 public final class Constant {
 
     public static final String LINE_SEPARATOR = "\n";
+    public static final String LINE_DIVIDER = "========================================== ";
 }
