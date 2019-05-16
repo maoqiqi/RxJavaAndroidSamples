@@ -36,10 +36,18 @@
     <string name="distinct">Distinct</string>
     <string name="ignore_elements">IgnoreElements</string>
 
-    <string name="start_with">startWith</string>
-    <string name="merge">merge</string>
-    <string name="zip">zip</string>
-    <string name="combine_latest">combineLatest</string>
-    <string name="join">join</string>
-    <string name="switch_on_next">switchOnNext</string>
+    <string name="start_with">StartWith</string>
+    <string name="merge">Merge</string>
+    <string name="zip">Zip</string>
+    <string name="combine_latest">CombineLatest</string>
+    <string name="join">Join</string>
+    <string name="switch_on_next">SwitchOnNext</string>
+
+    <string name="materialize">Materialize</string>
+    <string name="dematerialize">Dematerialize</string>
+    <string name="timestamp">Timestamp</string>
+    <string name="serialize">Serialize</string>
+    <string name="delay">Delay</string>
+    <string name="time_interval">TimeInterval</string>
+    <string name="using">Using</string>
 </resources>
