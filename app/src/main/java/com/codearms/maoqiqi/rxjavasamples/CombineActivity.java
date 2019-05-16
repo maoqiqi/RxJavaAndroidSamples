@@ -2,12 +2,15 @@ package com.codearms.maoqiqi.rxjavasamples;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
+import com.codearms.maoqiqi.rxjavasamples.utils.RecyclerViewAdapter;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -24,51 +27,25 @@ import io.reactivex.schedulers.Schedulers;
  * Author: fengqi.mao.march@gmail.com
  * Date: 2019/5/15 10:50
  */
-public class CombineActivity extends BaseActivity implements View.OnClickListener {
+public class CombineActivity extends BaseActivity {
 
     private static final String TAG = CombineActivity.class.getSimpleName();
 
-    private int[] ids = {R.id.btn_start_with, R.id.btn_merge, R.id.btn_zip, R.id.btn_combine_latest,
-            R.id.btn_join, R.id.btn_switch_on_next};
-
-    protected TextView textView;
+    private TextView textView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_combine);
+        setContentView(R.layout.activity_create);
 
         if (getSupportActionBar() != null) getSupportActionBar().setTitle("组合操作");
-        for (int id : ids) {
-            findViewById(id).setOnClickListener(this);
-        }
-        textView = findViewById(R.id.textView);
-    }
 
-    @Override
-    public void onClick(View v) {
-        Log.d(TAG, Constant.LINE_DIVIDER);
-        textView.append(Constant.LINE_DIVIDER);
-        switch (v.getId()) {
-            case R.id.btn_start_with:
-                startWith();
-                break;
-            case R.id.btn_merge:
-                merge();
-                break;
-            case R.id.btn_zip:
-                zip();
-                break;
-            case R.id.btn_combine_latest:
-                combineLatest();
-                break;
-            case R.id.btn_join:
-                join();
-                break;
-            case R.id.btn_switch_on_next:
-                switchOnNext();
-                break;
-        }
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        textView = findViewById(R.id.textView);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false));
+        String[] arr = getResources().getStringArray(R.array.combine_array);
+        recyclerView.setAdapter(new RecyclerViewAdapter(this, Arrays.asList(arr)));
     }
 
     // StartWith:在发射原来的Observable的数据序列之前,先发射一个指定的数据序列或数据项

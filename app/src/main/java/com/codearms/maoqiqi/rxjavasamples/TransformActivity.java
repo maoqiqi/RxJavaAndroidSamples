@@ -2,12 +2,15 @@ package com.codearms.maoqiqi.rxjavasamples;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
+import com.codearms.maoqiqi.rxjavasamples.utils.RecyclerViewAdapter;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -27,55 +30,32 @@ import io.reactivex.schedulers.Schedulers;
  * Author: fengqi.mao.march@gmail.com
  * Date: 2019/5/14 10:10
  */
-public class TransformActivity extends BaseActivity implements View.OnClickListener {
+public class TransformActivity extends BaseActivity {
 
     private static final String TAG = TransformActivity.class.getSimpleName();
-
-    private int[] ids = {R.id.btn_map, R.id.btn_flat_map, R.id.btn_scan, R.id.btn_group_by, R.id.btn_buffer, R.id.btn_window};
 
     protected TextView textView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transform);
+        setContentView(R.layout.activity_create);
 
         if (getSupportActionBar() != null) getSupportActionBar().setTitle("变换操作");
-        for (int id : ids) {
-            findViewById(id).setOnClickListener(this);
-        }
-        textView = findViewById(R.id.textView);
-    }
 
-    @Override
-    public void onClick(View v) {
-        Log.d(TAG, Constant.LINE_DIVIDER);
-        textView.append(Constant.LINE_DIVIDER);
-        switch (v.getId()) {
-            case R.id.btn_map:
-                map();
-                break;
-            case R.id.btn_flat_map:
-                flatMap();
-                break;
-            case R.id.btn_scan:
-                scan();
-                break;
-            case R.id.btn_group_by:
-                groupBy();
-                break;
-            case R.id.btn_buffer:
-                buffer();
-                break;
-            case R.id.btn_window:
-                window();
-                break;
-        }
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        textView = findViewById(R.id.textView);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false));
+        String[] arr = getResources().getStringArray(R.array.transform_array);
+        recyclerView.setAdapter(new RecyclerViewAdapter(this, Arrays.asList(arr)));
     }
 
     // Map:映射,通过对序列的每一项都应用一个函数变换Observable发射的数据,实质是对序列中的每一项执行一个函数,函数的参数就是这个数据项。
     // Cast:将原始Observable发射的每一项数据都强制转换为一个指定的类型,然后再发射数据,它是map的一个特殊版本。
     private void map() {
+        Log.d(TAG, Constant.LINE_DIVIDER);
+        textView.append(Constant.LINE_DIVIDER);
         getObservable().
                 map(new Function<Long, String>() {
                     @Override

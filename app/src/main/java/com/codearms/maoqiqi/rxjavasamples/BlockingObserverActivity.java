@@ -3,39 +3,24 @@ package com.codearms.maoqiqi.rxjavasamples;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.view.View;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
-import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
-
-public class BlockingObserverActivity extends BaseActivity implements View.OnClickListener {
+public class BlockingObserverActivity extends BaseActivity {
     // BlockingObserver一个阻塞的Observable继承普通的Observable类
 
     private static final String TAG = BlockingObserverActivity.class.getSimpleName();
 
-    private int[] ids = {};
-
-    protected TextView textView;
+    private TextView textView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_error);
+        setContentView(R.layout.activity_create);
 
         if (getSupportActionBar() != null) getSupportActionBar().setTitle("错误处理");
-        for (int id : ids) {
-            findViewById(id).setOnClickListener(this);
-        }
+
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
         textView = findViewById(R.id.textView);
-    }
-
-    @Override
-    public void onClick(View v) {
-        Log.d(TAG, Constant.LINE_DIVIDER);
-        textView.append(Constant.LINE_DIVIDER);
-        switch (v.getId()) {
-
-        }
     }
 }

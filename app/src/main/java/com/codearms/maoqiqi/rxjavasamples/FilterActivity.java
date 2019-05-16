@@ -2,13 +2,16 @@ package com.codearms.maoqiqi.rxjavasamples;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
+import com.codearms.maoqiqi.rxjavasamples.utils.RecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -28,70 +31,25 @@ import io.reactivex.schedulers.Schedulers;
  * Author: fengqi.mao.march@gmail.com
  * Date: 2019/5/14 15:25
  */
-public class FilterActivity extends BaseActivity implements View.OnClickListener {
+public class FilterActivity extends BaseActivity {
 
     private static final String TAG = FilterActivity.class.getSimpleName();
 
-    private int[] ids = {R.id.btn_filter, R.id.btn_take_last, R.id.btn_last, R.id.btn_skip,
-            R.id.btn_skip_last, R.id.btn_take, R.id.btn_first, R.id.btn_element_at,
-            R.id.btn_sample, R.id.btn_debounce, R.id.btn_distinct, R.id.btn_ignore_elements};
-
-    protected TextView textView;
+    private TextView textView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_filter);
+        setContentView(R.layout.activity_create);
 
         if (getSupportActionBar() != null) getSupportActionBar().setTitle("过滤操作");
-        for (int id : ids) {
-            findViewById(id).setOnClickListener(this);
-        }
-        textView = findViewById(R.id.textView);
-    }
 
-    @Override
-    public void onClick(View v) {
-        Log.d(TAG, Constant.LINE_DIVIDER);
-        textView.append(Constant.LINE_DIVIDER);
-        switch (v.getId()) {
-            case R.id.btn_filter:
-                filter();
-                break;
-            case R.id.btn_last:
-                last();
-                break;
-            case R.id.btn_skip:
-                skip();
-                break;
-            case R.id.btn_skip_last:
-                skipLast();
-                break;
-            case R.id.btn_take:
-                take();
-                break;
-            case R.id.btn_take_last:
-                takeLast();
-                break;
-            case R.id.btn_first:
-                first();
-                break;
-            case R.id.btn_element_at:
-                elementAt();
-                break;
-            case R.id.btn_sample:
-                sample();
-                break;
-            case R.id.btn_debounce:
-                debounce();
-                break;
-            case R.id.btn_distinct:
-                distinct();
-                break;
-            case R.id.btn_ignore_elements:
-                ignoreElements();
-                break;
-        }
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        textView = findViewById(R.id.textView);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false));
+        String[] arr = getResources().getStringArray(R.array.filter_array);
+        recyclerView.setAdapter(new RecyclerViewAdapter(this, Arrays.asList(arr)));
     }
 
     // Filter:过滤,过滤掉没有通过谓词测试的数据项,只发射通过测试的

@@ -2,12 +2,15 @@ package com.codearms.maoqiqi.rxjavasamples;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
+import com.codearms.maoqiqi.rxjavasamples.utils.RecyclerViewAdapter;
 
+import java.util.Arrays;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
@@ -29,54 +32,25 @@ import io.reactivex.schedulers.Timed;
  * Author:fengqi.mao.march@gmail.com
  * Date:2019/5/15 13:43
  */
-public class AssistActivity extends BaseActivity implements View.OnClickListener {
+public class AssistActivity extends BaseActivity {
 
     private static final String TAG = AssistActivity.class.getSimpleName();
 
-    private int[] ids = {R.id.btn_materialize, R.id.btn_dematerialize, R.id.btn_timestamp, R.id.btn_serialize,
-            R.id.btn_delay, R.id.btn_time_interval, R.id.btn_using};
-
-    protected TextView textView;
+    private TextView textView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_assist);
+        setContentView(R.layout.activity_create);
 
         if (getSupportActionBar() != null) getSupportActionBar().setTitle("辅助操作");
-        for (int id : ids) {
-            findViewById(id).setOnClickListener(this);
-        }
-        textView = findViewById(R.id.textView);
-    }
 
-    @Override
-    public void onClick(View v) {
-        Log.d(TAG, Constant.LINE_DIVIDER);
-        textView.append(Constant.LINE_DIVIDER);
-        switch (v.getId()) {
-            case R.id.btn_materialize:
-                materialize();
-                break;
-            case R.id.btn_dematerialize:
-                dematerialize();
-                break;
-            case R.id.btn_timestamp:
-                timestamp();
-                break;
-            case R.id.btn_serialize:
-                serialize();
-                break;
-            case R.id.btn_delay:
-                delay();
-                break;
-            case R.id.btn_time_interval:
-                timeInterval();
-                break;
-            case R.id.btn_using:
-                using();
-                break;
-        }
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        textView = findViewById(R.id.textView);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false));
+        String[] arr = getResources().getStringArray(R.array.assist_array);
+        recyclerView.setAdapter(new RecyclerViewAdapter(this, Arrays.asList(arr)));
     }
 
     /**

@@ -18,38 +18,46 @@
         <item name="repeat">Repeat</item>
     </string-array>
 
-    <string name="map">Map</string>
-    <string name="flat_map">FlatMap</string>
-    <string name="scan">Scan</string>
-    <string name="group_by">GroupBy</string>
-    <string name="buffer">Buffer</string>
-    <string name="window">Window</string>
+    <string-array name="transform_array">
+        <item name="map">Map</item>
+        <item name="flat_map">FlatMap</item>
+        <item name="scan">Scan</item>
+        <item name="group_by">GroupBy</item>
+        <item name="buffer">Buffer</item>
+        <item name="window">Window</item>
+    </string-array>
 
-    <string name="filter">Filter</string>
-    <string name="take_last">TakeLast</string>
-    <string name="last">Last</string>
-    <string name="skip">Skip</string>
-    <string name="skip_last">SkipLast</string>
-    <string name="take">Take</string>
-    <string name="first">First</string>
-    <string name="element_at">ElementAt</string>
-    <string name="sample">Sample</string>
-    <string name="debounce">Debounce</string>
-    <string name="distinct">Distinct</string>
-    <string name="ignore_elements">IgnoreElements</string>
+    <string-array name="filter_array">
+        <item name="filter">Filter</item>
+        <item name="take_last">TakeLast</item>
+        <item name="last">Last</item>
+        <item name="skip">Skip</item>
+        <item name="skip_last">SkipLast</item>
+        <item name="take">Take</item>
+        <item name="first">First</item>
+        <item name="element_at">ElementAt</item>
+        <item name="sample">Sample</item>
+        <item name="debounce">Debounce</item>
+        <item name="distinct">Distinct</item>
+        <item name="ignore_elements">IgnoreElements</item>
+    </string-array>
 
-    <string name="start_with">StartWith</string>
-    <string name="merge">Merge</string>
-    <string name="zip">Zip</string>
-    <string name="combine_latest">CombineLatest</string>
-    <string name="join">Join</string>
-    <string name="switch_on_next">SwitchOnNext</string>
+    <string-array name="combine_array">
+        <item name="start_with">StartWith</item>
+        <item name="merge">Merge</item>
+        <item name="zip">Zip</item>
+        <item name="combine_latest">CombineLatest</item>
+        <item name="join">Join</item>
+        <item name="switch_on_next">SwitchOnNext</item>
+    </string-array>
 
-    <string name="materialize">Materialize</string>
-    <string name="dematerialize">Dematerialize</string>
-    <string name="timestamp">Timestamp</string>
-    <string name="serialize">Serialize</string>
-    <string name="delay">Delay</string>
-    <string name="time_interval">TimeInterval</string>
-    <string name="using">Using</string>
+    <string-array name="assist_array">
+        <item name="materialize">Materialize</item>
+        <item name="dematerialize">Dematerialize</item>
+        <item name="timestamp">Timestamp</item>
+        <item name="serialize">Serialize</item>
+        <item name="delay">Delay</item>
+        <item name="time_interval">TimeInterval</item>
+        <item name="using">Using</item>
+    </string-array>
 </resources>
