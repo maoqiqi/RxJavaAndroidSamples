@@ -2,19 +2,21 @@
     <string name="app_name">Samples</string>
     <string name="doSomeWork">doSomeWork</string>
 
-    <string name="create">Create</string>
-    <string name="just">Just</string>
-    <string name="from">From</string>
-    <string name="start">Start</string>
-    <string name="defer">Defer</string>
-    <string name="empty">Empty</string>
-    <string name="never">Never</string>
-    <string name="error">Error</string>
-    <string name="range">Range</string>
-    <string name="interval">Interval</string>
-    <string name="interval_range">intervalRange</string>
-    <string name="timer">Timer</string>
-    <string name="repeat">Repeat</string>
+    <string-array name="create_array">
+        <item name="create">Create</item>
+        <item name="just">Just</item>
+        <item name="from">From</item>
+        <item name="start">Start</item>
+        <item name="defer">Defer</item>
+        <item name="empty">Empty</item>
+        <item name="never">Never</item>
+        <item name="error">Error</item>
+        <item name="range">Range</item>
+        <item name="interval">Interval</item>
+        <item name="interval_range">intervalRange</item>
+        <item name="timer">Timer</item>
+        <item name="repeat">Repeat</item>
+    </string-array>
 
     <string name="map">Map</string>
     <string name="flat_map">FlatMap</string>

@@ -4,106 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/h1"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <Button
-            android:id="@+id/btn_create"
-            style="@style/btn_style"
-            android:text="@string/create" />
-
-        <Button
-            android:id="@+id/btn_just"
-            style="@style/btn_style"
-            android:text="@string/just" />
-
-        <Button
-            android:id="@+id/btn_from"
-            style="@style/btn_style"
-            android:text="@string/from" />
-
-        <Button
-            android:id="@+id/btn_start"
-            style="@style/btn_style"
-            android:text="@string/start" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/h2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/h1">
-
-        <Button
-            android:id="@+id/btn_defer"
-            style="@style/btn_style"
-            android:text="@string/defer" />
-
-        <Button
-            android:id="@+id/btn_empty"
-            style="@style/btn_style"
-            android:text="@string/empty" />
-
-        <Button
-            android:id="@+id/btn_never"
-            style="@style/btn_style"
-            android:text="@string/never" />
-
-        <Button
-            android:id="@+id/btn_error"
-            style="@style/btn_style"
-            android:text="@string/error" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/h3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/h2">
-
-        <Button
-            android:id="@+id/btn_range"
-            style="@style/btn_style"
-            android:text="@string/range" />
-
-        <Button
-            android:id="@+id/btn_interval"
-            style="@style/btn_style"
-            android:text="@string/interval" />
-
-        <Button
-            android:id="@+id/btn_interval_range"
-            style="@style/btn_style"
-            android:text="@string/interval_range" />
-
-        <Button
-            android:id="@+id/btn_timer"
-            style="@style/btn_style"
-            android:text="@string/timer" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/h4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/h3">
-
-        <Button
-            android:id="@+id/btn_repeat"
-            style="@style/btn_style"
-            android:text="@string/repeat" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -111,7 +17,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/h4">
+        app:layout_constraintTop_toBottomOf="@id/recycler_view">
 
         <TextView
             android:id="@+id/textView"

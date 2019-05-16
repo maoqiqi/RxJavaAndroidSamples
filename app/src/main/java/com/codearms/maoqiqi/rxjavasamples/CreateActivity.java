@@ -3,12 +3,14 @@ package com.codearms.maoqiqi.rxjavasamples;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
 import com.codearms.maoqiqi.rxjavasamples.utils.Car;
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
+import com.codearms.maoqiqi.rxjavasamples.utils.RecyclerViewAdapter;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,16 +31,12 @@ import io.reactivex.schedulers.Schedulers;
  * Author: fengqi.mao.march@gmail.com
  * Date: 2019/5/13 12:12
  */
-public class CreateActivity extends BaseActivity implements View.OnClickListener {
+public class CreateActivity extends BaseActivity {
 
     private static final String TAG = SimpleExampleActivity.class.getSimpleName();
     private static final String ERROR = "故意让程序出错";
 
-    private int[] ids = {R.id.btn_create, R.id.btn_just, R.id.btn_from, R.id.btn_start,
-            R.id.btn_defer, R.id.btn_empty, R.id.btn_never, R.id.btn_error,
-            R.id.btn_range, R.id.btn_interval, R.id.btn_interval_range, R.id.btn_timer, R.id.btn_repeat,};
-
-    protected TextView textView;
+    private TextView textView;
 
     private Function<Long, Long> function;
 
@@ -50,10 +48,13 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
         setContentView(R.layout.activity_create);
 
         if (getSupportActionBar() != null) getSupportActionBar().setTitle("创建操作");
-        for (int id : ids) {
-            findViewById(id).setOnClickListener(this);
-        }
+
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
         textView = findViewById(R.id.textView);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false));
+        String[] arr = getResources().getStringArray(R.array.create_array);
+        recyclerView.setAdapter(new RecyclerViewAdapter(this, Arrays.asList(arr)));
 
         function = new Function<Long, Long>() {
             @Override
@@ -75,108 +76,113 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
         super.onDestroy();
     }
 
-    @Override
-    public void onClick(View v) {
-        Log.d(TAG, Constant.LINE_DIVIDER);
-        textView.append(Constant.LINE_DIVIDER);
-        switch (v.getId()) {
-            case R.id.btn_create:
-                disposables.add(createObservable()
-                        .map(function)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        // .subscribe(getObserver())
-                        .subscribeWith(getObserver()));
-                break;
-            case R.id.btn_just:
-                disposables.add(justObservable()
-                        .map(function)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(getObserver()));
-                break;
-            case R.id.btn_from:
-                disposables.add(fromObservable()
-                        .map(function)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(getObserver()));
-                break;
-            case R.id.btn_start:
-                disposables.add(startObservable()
-                        .map(function)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(getObserver()));
-                break;
-            case R.id.btn_defer:
-                Car car = new Car();
+    public void create() {
+        disposables.add(createObservable()
+                .map(function)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                // .subscribe(getObserver())
+                .subscribeWith(getObserver()));
+    }
 
-                disposables.add(car.brandDeferObservable()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(getObserver()));
+    public void just() {
+        disposables.add(justObservable()
+                .map(function)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getObserver()));
+    }
 
-                // 即使我们在创建Observable后调用setBrand(),我们也会得到"BMW"。如果我们没有使用defer,我们将得到null。
-                car.setBrand("BMW");
-                break;
-            case R.id.btn_empty:
-                disposables.add(emptyObservable()
-                        .map(function)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(getObserver()));
-                break;
-            case R.id.btn_never:
-                disposables.add(neverObservable()
-                        .map(function)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(getObserver()));
-                break;
-            case R.id.btn_error:
-                disposables.add(errorObservable()
-                        .map(function)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(getObserver()));
-                break;
-            case R.id.btn_range:
-                disposables.add(rangeObservable()
-                        .map(function)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(getObserver()));
-                break;
-            case R.id.btn_interval:
-                disposables.add(intervalObservable()
-                        .map(function)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(getObserver()));
-                break;
-            case R.id.btn_interval_range:
-                disposables.add(intervalRangeObservable()
-                        .map(function)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(getObserver()));
-                break;
-            case R.id.btn_timer:
-                disposables.add(timerObservable()
-                        .map(function)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(getObserver()));
-                break;
-            case R.id.btn_repeat:
-                disposables.add(repeatObservable()
-                        .map(function)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(getObserver()));
-                break;
-        }
+    public void from() {
+        disposables.add(fromObservable()
+                .map(function)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getObserver()));
+    }
+
+    public void start() {
+        disposables.add(startObservable()
+                .map(function)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getObserver()));
+    }
+
+    public void defer() {
+        Car car = new Car();
+
+        disposables.add(car.brandDeferObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getObserver()));
+
+        // 即使我们在创建Observable后调用setBrand(),我们也会得到"BMW"。如果我们没有使用defer,我们将得到null。
+        car.setBrand("BMW");
+    }
+
+    public void empty() {
+        disposables.add(emptyObservable()
+                .map(function)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getObserver()));
+    }
+
+    public void never() {
+        disposables.add(neverObservable()
+                .map(function)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getObserver()));
+    }
+
+    public void error() {
+        disposables.add(errorObservable()
+                .map(function)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getObserver()));
+    }
+
+    public void range() {
+        disposables.add(rangeObservable()
+                .map(function)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getObserver()));
+    }
+
+    public void interval() {
+        disposables.add(intervalObservable()
+                .map(function)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getObserver()));
+    }
+
+    public void interval_range() {
+        disposables.add(intervalRangeObservable()
+                .map(function)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getObserver()));
+    }
+
+    public void timer() {
+        disposables.add(timerObservable()
+                .map(function)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getObserver()));
+    }
+
+    public void repeat() {
+        disposables.add(repeatObservable()
+                .map(function)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getObserver()));
     }
 
     // Create:通过调用观察者的方法从头创建一个Observable
