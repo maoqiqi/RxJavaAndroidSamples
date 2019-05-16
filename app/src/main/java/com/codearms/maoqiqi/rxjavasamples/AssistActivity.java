@@ -8,15 +8,18 @@ import android.widget.TextView;
 
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Notification;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.schedulers.Timed;
@@ -62,6 +65,7 @@ public class AssistActivity extends BaseActivity implements View.OnClickListener
                 timestamp();
                 break;
             case R.id.btn_serialize:
+                serialize();
                 break;
             case R.id.btn_delay:
                 delay();
@@ -70,6 +74,7 @@ public class AssistActivity extends BaseActivity implements View.OnClickListener
                 timeInterval();
                 break;
             case R.id.btn_using:
+                using();
                 break;
         }
     }
@@ -115,7 +120,29 @@ public class AssistActivity extends BaseActivity implements View.OnClickListener
 
     // Serialize:强制Observable按次序发射数据并且功能是有效的
     private void serialize() {
-
+        Observable.create(new ObservableOnSubscribe<Long>() {
+            @Override
+            public void subscribe(ObservableEmitter<Long> emitter) {
+                try {
+                    if (!emitter.isDisposed()) {
+                        emitter.onNext(1L);
+                        emitter.onNext(2L);
+                        emitter.onNext(3L);
+                        emitter.onNext(5L);
+                        emitter.onNext(6L);
+                        emitter.onNext(7L);
+                        emitter.onComplete();
+                        Log.d(TAG, "被观察者onComplete()之后是否还有输出");
+                    }
+                } catch (Exception e) {
+                    emitter.onError(e);
+                }
+            }
+        })
+                .serialize()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(getObserver());
     }
 
     // Delay:延迟一段时间发射结果数据
@@ -138,11 +165,39 @@ public class AssistActivity extends BaseActivity implements View.OnClickListener
 
     // Using:创建一个只在Observable的生命周期内存在的一次性资源
     private void using() {
-//        getObservable()
+        // Func0->Callable
+        // Func1->Function
+        // Action1->Consumer<
+        Observable.using(
+                // 一个用于创建一次性资源的工厂函数
+                new Callable<Long>() {
+                    @Override
+                    public Long call() {
+                        return -1000L;
+                    }
+                },
+                // 一个用于创建Observable的工厂函数,这个函数返回的Observable就是最终被观察的Observable
+                new Function<Long, ObservableSource<Long>>() {
+                    @Override
+                    public ObservableSource<Long> apply(Long aLong) {
+                        return Observable.just(aLong);
+                    }
+                },
+                // 一个用于释放资源的函数
+                new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) {
+
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(getObserver());
     }
 
     private Observable<Long> getObservable() {
-        return Observable.rangeLong(1, 5);
+        // return Observable.rangeLong(1, 5);
+        return Observable.intervalRange(1, 5, 0, 2, TimeUnit.SECONDS);
     }
 
     private Observer<Long> getObserver() {
@@ -179,7 +234,7 @@ public class AssistActivity extends BaseActivity implements View.OnClickListener
     private Observable<Notification<Long>> getNotificationObservable() {
         return Observable.create(new ObservableOnSubscribe<Notification<Long>>() {
             @Override
-            public void subscribe(ObservableEmitter<Notification<Long>> emitter) throws Exception {
+            public void subscribe(ObservableEmitter<Notification<Long>> emitter) {
                 emitter.onNext(Notification.createOnNext(1L));
                 emitter.onNext(Notification.createOnNext(2L));
                 emitter.onNext(Notification.<Long>createOnComplete());
