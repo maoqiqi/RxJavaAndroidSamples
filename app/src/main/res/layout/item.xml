@@ -6,8 +6,15 @@
 
     <Button
         android:id="@+id/btn"
-        style="@style/btn_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_btn"
+        android:minWidth="0dp"
+        android:minHeight="32dp"
         android:text="@string/app_name"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/text_size_smaller"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

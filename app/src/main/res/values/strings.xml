@@ -60,4 +60,43 @@
         <item name="time_interval">TimeInterval</item>
         <item name="using">Using</item>
     </string-array>
+
+    <string-array name="arithmetic_array">
+        <item>Average</item>
+        <item>Concat</item>
+        <item>Count</item>
+        <item>Reduce</item>
+    </string-array>
+
+    <string-array name="condition_array">
+        <item>amb</item>
+        <item>defaultIfEmpty</item>
+        <item>doWhile</item>
+        <item>ifThen</item>
+        <item>skipUntil</item>
+        <item>skipWhile</item>
+        <item>switchCase</item>
+        <item>takeUntil</item>
+        <item>takeWhile</item>
+        <item>whileDo</item>
+    </string-array>
+
+    <string-array name="connect_array">
+        <item>Connect</item>
+        <item>Publish</item>
+        <item>Replay</item>
+        <item>RefCount</item>
+    </string-array>
+
+    <string-array name="convert_array">
+        <item>To</item>
+        <item>getIterator</item>
+        <item>toFuture</item>
+        <item>toIterable</item>
+        <item>toList</item>
+        <item>toMap</item>
+        <item>toMultiMap</item>
+        <item>toSortedList</item>
+        <item>nest</item>
+    </string-array>
 </resources>

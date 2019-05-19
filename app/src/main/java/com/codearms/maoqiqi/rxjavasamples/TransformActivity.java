@@ -7,7 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.codearms.maoqiqi.rxjavasamples.utils.BeforeClickListener;
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
+import com.codearms.maoqiqi.rxjavasamples.utils.GridDividerItemDecoration;
 import com.codearms.maoqiqi.rxjavasamples.utils.RecyclerViewAdapter;
 
 import java.util.Arrays;
@@ -30,7 +32,7 @@ import io.reactivex.schedulers.Schedulers;
  * Author: fengqi.mao.march@gmail.com
  * Date: 2019/5/14 10:10
  */
-public class TransformActivity extends BaseActivity {
+public class TransformActivity extends BaseActivity implements BeforeClickListener {
 
     private static final String TAG = TransformActivity.class.getSimpleName();
 
@@ -47,15 +49,20 @@ public class TransformActivity extends BaseActivity {
         textView = findViewById(R.id.textView);
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false));
+        recyclerView.addItemDecoration(new GridDividerItemDecoration(1, getResources().getColor(android.R.color.darker_gray)));
         String[] arr = getResources().getStringArray(R.array.transform_array);
-        recyclerView.setAdapter(new RecyclerViewAdapter(this, Arrays.asList(arr)));
+        recyclerView.setAdapter(new RecyclerViewAdapter(this, Arrays.asList(arr), this));
+    }
+
+    @Override
+    public void onBefore() {
+        Log.d(TAG, Constant.LINE_DIVIDER);
+        textView.append(Constant.LINE_DIVIDER);
     }
 
     // Map:映射,通过对序列的每一项都应用一个函数变换Observable发射的数据,实质是对序列中的每一项执行一个函数,函数的参数就是这个数据项。
     // Cast:将原始Observable发射的每一项数据都强制转换为一个指定的类型,然后再发射数据,它是map的一个特殊版本。
     private void map() {
-        Log.d(TAG, Constant.LINE_DIVIDER);
-        textView.append(Constant.LINE_DIVIDER);
         getObservable().
                 map(new Function<Long, String>() {
                     @Override

@@ -7,7 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.codearms.maoqiqi.rxjavasamples.utils.BeforeClickListener;
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
+import com.codearms.maoqiqi.rxjavasamples.utils.GridDividerItemDecoration;
 import com.codearms.maoqiqi.rxjavasamples.utils.RecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ import io.reactivex.schedulers.Schedulers;
  * Author: fengqi.mao.march@gmail.com
  * Date: 2019/5/14 15:25
  */
-public class FilterActivity extends BaseActivity {
+public class FilterActivity extends BaseActivity implements BeforeClickListener {
 
     private static final String TAG = FilterActivity.class.getSimpleName();
 
@@ -48,8 +50,15 @@ public class FilterActivity extends BaseActivity {
         textView = findViewById(R.id.textView);
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false));
+        recyclerView.addItemDecoration(new GridDividerItemDecoration(1, getResources().getColor(android.R.color.darker_gray)));
         String[] arr = getResources().getStringArray(R.array.filter_array);
-        recyclerView.setAdapter(new RecyclerViewAdapter(this, Arrays.asList(arr)));
+        recyclerView.setAdapter(new RecyclerViewAdapter(this, Arrays.asList(arr), this));
+    }
+
+    @Override
+    public void onBefore() {
+        Log.d(TAG, Constant.LINE_DIVIDER);
+        textView.append(Constant.LINE_DIVIDER);
     }
 
     // Filter:过滤,过滤掉没有通过谓词测试的数据项,只发射通过测试的

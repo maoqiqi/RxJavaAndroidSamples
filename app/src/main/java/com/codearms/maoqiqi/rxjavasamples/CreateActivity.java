@@ -1,5 +1,6 @@
 package com.codearms.maoqiqi.rxjavasamples;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.Nullable;
@@ -8,8 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.codearms.maoqiqi.rxjavasamples.utils.BeforeClickListener;
 import com.codearms.maoqiqi.rxjavasamples.utils.Car;
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
+import com.codearms.maoqiqi.rxjavasamples.utils.GridDividerItemDecoration;
 import com.codearms.maoqiqi.rxjavasamples.utils.RecyclerViewAdapter;
 
 import java.util.Arrays;
@@ -31,7 +34,7 @@ import io.reactivex.schedulers.Schedulers;
  * Author: fengqi.mao.march@gmail.com
  * Date: 2019/5/13 12:12
  */
-public class CreateActivity extends BaseActivity {
+public class CreateActivity extends BaseActivity implements BeforeClickListener {
 
     private static final String TAG = SimpleExampleActivity.class.getSimpleName();
     private static final String ERROR = "故意让程序出错";
@@ -53,8 +56,9 @@ public class CreateActivity extends BaseActivity {
         textView = findViewById(R.id.textView);
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false));
+        recyclerView.addItemDecoration(new GridDividerItemDecoration(1, getResources().getColor(android.R.color.darker_gray)));
         String[] arr = getResources().getStringArray(R.array.create_array);
-        recyclerView.setAdapter(new RecyclerViewAdapter(this, Arrays.asList(arr)));
+        recyclerView.setAdapter(new RecyclerViewAdapter(this, Arrays.asList(arr), this));
 
         function = new Function<Long, Long>() {
             @Override
@@ -63,6 +67,12 @@ public class CreateActivity extends BaseActivity {
                 return aLong;
             }
         };
+    }
+
+    @Override
+    public void onBefore() {
+        Log.d(TAG, Constant.LINE_DIVIDER);
+        textView.append(Constant.LINE_DIVIDER);
     }
 
     private boolean isMainThread() {

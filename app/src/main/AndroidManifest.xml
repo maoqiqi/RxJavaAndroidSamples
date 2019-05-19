@@ -15,8 +15,6 @@
         <activity android:name=".SingleObserverExampleActivity" />
         <activity android:name=".CompletableObserverExampleActivity" />
         <activity android:name=".FlowableExampleActivity" />
-        <activity android:name=".ReduceExampleActivity" />
-        <activity android:name=".ReplayExampleActivity" />
         <activity android:name=".ReplaySubjectExampleActivity" />
         <activity android:name=".PublishSubjectExampleActivity" />
         <activity android:name=".BehaviorSubjectExampleActivity" />
@@ -31,7 +29,11 @@
         <activity android:name=".FilterActivity" />
         <activity android:name=".CombineActivity" />
         <activity android:name=".ErrorActivity" />
-        <activity android:name=".AssistActivity">
+        <activity android:name=".AssistActivity" />
+        <activity android:name=".ArithmeticActivity" />
+        <activity android:name=".ConnectActivity" />
+        <activity android:name=".ConditionActivity" />
+        <activity android:name=".ConvertActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />

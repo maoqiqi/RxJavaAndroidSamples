@@ -2,10 +2,19 @@ package com.codearms.maoqiqi.rxjavasamples;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.TextView;
 
-public class ConditionActivity extends BaseActivity {
+import com.codearms.maoqiqi.rxjavasamples.utils.BeforeClickListener;
+import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
+import com.codearms.maoqiqi.rxjavasamples.utils.GridDividerItemDecoration;
+import com.codearms.maoqiqi.rxjavasamples.utils.RecyclerViewAdapter;
+
+import java.util.Arrays;
+
+public class ConditionActivity extends BaseActivity implements BeforeClickListener {
 
     private static final String TAG = ErrorActivity.class.getSimpleName();
 
@@ -16,9 +25,20 @@ public class ConditionActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle("错误处理");
+        if (getSupportActionBar() != null) getSupportActionBar().setTitle("条件操作");
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         textView = findViewById(R.id.textView);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false));
+        recyclerView.addItemDecoration(new GridDividerItemDecoration(1, getResources().getColor(android.R.color.darker_gray)));
+        String[] arr = getResources().getStringArray(R.array.condition_array);
+        recyclerView.setAdapter(new RecyclerViewAdapter(this, Arrays.asList(arr), this));
+    }
+
+    @Override
+    public void onBefore() {
+        Log.d(TAG, Constant.LINE_DIVIDER);
+        textView.append(Constant.LINE_DIVIDER);
     }
 }

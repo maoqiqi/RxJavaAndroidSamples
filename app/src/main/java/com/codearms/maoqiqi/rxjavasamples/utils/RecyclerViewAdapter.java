@@ -24,10 +24,12 @@ public final class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
 
     private Activity activity;
     private List<String> data;
+    private BeforeClickListener listener;
 
-    public RecyclerViewAdapter(Activity activity, List<String> data) {
+    public RecyclerViewAdapter(Activity activity, List<String> data, BeforeClickListener listener) {
         this.activity = activity;
         this.data = data;
+        this.listener = listener;
     }
 
     @NonNull
@@ -43,6 +45,7 @@ public final class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         viewHolder.btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (listener != null) listener.onBefore();
                 try {
                     @SuppressLint("PrivateApi")
                     Method method = activity.getClass().getDeclaredMethod(methodName);

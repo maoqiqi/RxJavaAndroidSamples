@@ -7,7 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.codearms.maoqiqi.rxjavasamples.utils.BeforeClickListener;
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
+import com.codearms.maoqiqi.rxjavasamples.utils.GridDividerItemDecoration;
 import com.codearms.maoqiqi.rxjavasamples.utils.RecyclerViewAdapter;
 
 import java.util.Arrays;
@@ -27,7 +29,7 @@ import io.reactivex.schedulers.Schedulers;
  * Author: fengqi.mao.march@gmail.com
  * Date: 2019/5/15 10:50
  */
-public class CombineActivity extends BaseActivity {
+public class CombineActivity extends BaseActivity implements BeforeClickListener {
 
     private static final String TAG = CombineActivity.class.getSimpleName();
 
@@ -44,8 +46,15 @@ public class CombineActivity extends BaseActivity {
         textView = findViewById(R.id.textView);
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false));
+        recyclerView.addItemDecoration(new GridDividerItemDecoration(1, getResources().getColor(android.R.color.darker_gray)));
         String[] arr = getResources().getStringArray(R.array.combine_array);
-        recyclerView.setAdapter(new RecyclerViewAdapter(this, Arrays.asList(arr)));
+        recyclerView.setAdapter(new RecyclerViewAdapter(this, Arrays.asList(arr), this));
+    }
+
+    @Override
+    public void onBefore() {
+        Log.d(TAG, Constant.LINE_DIVIDER);
+        textView.append(Constant.LINE_DIVIDER);
     }
 
     // StartWith:在发射原来的Observable的数据序列之前,先发射一个指定的数据序列或数据项

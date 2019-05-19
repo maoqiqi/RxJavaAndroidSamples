@@ -7,7 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.codearms.maoqiqi.rxjavasamples.utils.BeforeClickListener;
 import com.codearms.maoqiqi.rxjavasamples.utils.Constant;
+import com.codearms.maoqiqi.rxjavasamples.utils.GridDividerItemDecoration;
 import com.codearms.maoqiqi.rxjavasamples.utils.RecyclerViewAdapter;
 
 import java.util.Arrays;
@@ -32,7 +34,7 @@ import io.reactivex.schedulers.Timed;
  * Author:fengqi.mao.march@gmail.com
  * Date:2019/5/15 13:43
  */
-public class AssistActivity extends BaseActivity {
+public class AssistActivity extends BaseActivity implements BeforeClickListener {
 
     private static final String TAG = AssistActivity.class.getSimpleName();
 
@@ -49,8 +51,15 @@ public class AssistActivity extends BaseActivity {
         textView = findViewById(R.id.textView);
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false));
+        recyclerView.addItemDecoration(new GridDividerItemDecoration(1, getResources().getColor(android.R.color.darker_gray)));
         String[] arr = getResources().getStringArray(R.array.assist_array);
-        recyclerView.setAdapter(new RecyclerViewAdapter(this, Arrays.asList(arr)));
+        recyclerView.setAdapter(new RecyclerViewAdapter(this, Arrays.asList(arr), this));
+    }
+
+    @Override
+    public void onBefore() {
+        Log.d(TAG, Constant.LINE_DIVIDER);
+        textView.append(Constant.LINE_DIVIDER);
     }
 
     /**
